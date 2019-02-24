@@ -2,7 +2,7 @@ import numpy as np
 import numpy.random as npr
 import os
 
-data_dir = '../../DATA'
+data_dir = '../DATA/'
 #anno_file = os.path.join(data_dir, "anno.txt")
 
 size = 12
@@ -25,8 +25,8 @@ with open(os.path.join(data_dir, '%s/part_%s.txt' % (size, size)), 'r') as f:
 
 with open(os.path.join(data_dir,'%s/landmark_%s_aug.txt' %(size,size)), 'r') as f:
     landmark = f.readlines()
-    
 dir_path = os.path.join(data_dir, 'imglists')
+print dir_path
 if not os.path.exists(dir_path):
     os.makedirs(dir_path)
 if not os.path.exists(os.path.join(dir_path, "%s" %(net))):
