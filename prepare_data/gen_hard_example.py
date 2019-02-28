@@ -1,7 +1,7 @@
 #coding:utf-8
 import sys
 #sys.path.append("../")
-from prepare_data.utils import convert_to_square
+from utils import convert_to_square
 
 sys.path.insert(0,'..')
 import numpy as np
@@ -16,7 +16,7 @@ from Detection.detector import Detector
 from Detection.fcn_detector import FcnDetector
 from Detection.MtcnnDetector import MtcnnDetector
 from utils import *
-from prepare_data.data_utils import *
+from data_utils import *
 #net : 24(RNet)/48(ONet)
 #data: dict()
 def save_hard_example(net, data,save_path):
@@ -30,7 +30,7 @@ def save_hard_example(net, data,save_path):
 
     print("processing %d images in total" % num_of_images)
 
-    
+
     # save files
     neg_label_file = "../../DATA/no_LM%d/neg_%d.txt" % (net, image_size)
     neg_file = open(neg_label_file, 'w')
@@ -84,7 +84,7 @@ def save_hard_example(net, data,save_path):
                                     interpolation=cv2.INTER_LINEAR)
 
             # save negative images and write label
-            # Iou with all gts must below 0.3            
+            # Iou with all gts must below 0.3
             if np.max(Iou) < 0.3 and neg_num < 60:
                 #save the examples
                 save_file = get_path(neg_dir, "%s.jpg" % n_idx)
@@ -151,7 +151,7 @@ def t_net(prefix, epoch,
         print("==================================", test_mode)
         ONet = Detector(O_Net, 48, batch_size[2], model_path[2])
         detectors[2] = ONet
-        
+
     basedir = '../../DATA/'
     #anno_file
     filename = './wider_face_train_bbx_gt.txt'
@@ -226,11 +226,11 @@ if __name__ == '__main__':
 
     base_dir = '../../DATA/WIDER_train'
     data_dir = '../../DATA/no_LM%s' % str(image_size)
-    
+
     neg_dir = get_path(data_dir, 'negative')
     pos_dir = get_path(data_dir, 'positive')
     part_dir = get_path(data_dir, 'part')
-    #create dictionary shuffle   
+    #create dictionary shuffle
     for dir_path in [neg_dir, pos_dir, part_dir]:
         if not os.path.exists(dir_path):
             os.makedirs(dir_path)
@@ -241,11 +241,11 @@ if __name__ == '__main__':
     print(args)
     t_net(args.prefix,#model param's file
           args.epoch, #final epoches
-          args.batch_size, #test batch_size 
+          args.batch_size, #test batch_size
           args.test_mode,#test which model
           args.thresh, #cls threshold
           args.min_face, #min_face
           args.stride,#stride
-          args.slide_window, 
-          args.shuffle, 
+          args.slide_window,
+          args.shuffle,
           vis=False)
