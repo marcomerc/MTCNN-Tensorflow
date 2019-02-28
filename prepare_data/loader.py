@@ -14,11 +14,10 @@ class TestLoader:
         self.shuffle = shuffle
         self.size = len(imdb)#num of data
         #self.index = np.arange(self.size)
-        
+
         self.cur = 0
         self.data = None
         self.label = None
-
         self.reset()
         self.get_batch()
 
@@ -34,7 +33,7 @@ class TestLoader:
     #return iter object
     def __iter__(self):
         return self
-    
+
     def __next__(self):
         return self.next()
 
@@ -67,7 +66,17 @@ class TestLoader:
         #print type(imdb)
         #print len(imdb)
         #assert len(imdb) == 1, "Single batch only"
+        print "inside the loader"
+        imdb =imdb[3:]
+        print imdb
         im = cv2.imread(imdb)
+        print "after "
+        print im
+
+
+
+
+
         self.data = im
 
 class ImageLoader:

@@ -11,7 +11,7 @@ import pickle as pickle
 import cv2
 from train_models.mtcnn_model import P_Net, R_Net, O_Net
 from train_models.MTCNN_config import config
-from prepare_data.loader import TestLoader
+from loader import TestLoader
 from Detection.detector import Detector
 from Detection.fcn_detector import FcnDetector
 from Detection.MtcnnDetector import MtcnnDetector
@@ -157,6 +157,7 @@ def t_net(prefix, epoch,
     filename = './wider_face_train_bbx_gt.txt'
     #read anotation(type:dict), include 'images' and 'bboxes'
     data = read_annotation(basedir,filename)
+    print data.keys()
     mtcnn_detector = MtcnnDetector(detectors=detectors, min_face_size=min_face_size,
                                    stride=stride, threshold=thresh, slide_window=slide_window)
     print("==================================")
@@ -165,9 +166,12 @@ def t_net(prefix, epoch,
     # gt_imdb = imdb.gt_imdb()
     print('load test data')
     test_data = TestLoader(data['images'])
+
+    # print test_data
     print ('finish loading')
     #list
     print ('start detecting....')
+    print(test_data)
     detections,_ = mtcnn_detector.detect_face(test_data)
     print ('finish detecting ')
     save_net = 'RNet'
