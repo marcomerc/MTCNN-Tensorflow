@@ -66,12 +66,7 @@ class TestLoader:
         #print type(imdb)
         #print len(imdb)
         #assert len(imdb) == 1, "Single batch only"
-        print "inside the loader"
-        imdb =imdb[3:]
-        print imdb
         im = cv2.imread(imdb)
-        print "after "
-        print im
 
 
 

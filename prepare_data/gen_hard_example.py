@@ -32,13 +32,13 @@ def save_hard_example(net, data,save_path):
 
 
     # save files
-    neg_label_file = "../../DATA/no_LM%d/neg_%d.txt" % (net, image_size)
+    neg_label_file = "../DATA/no_LM%d/neg_%d.txt" % (net, image_size)
     neg_file = open(neg_label_file, 'w')
 
-    pos_label_file = "../../DATA/no_LM%d/pos_%d.txt" % (net, image_size)
+    pos_label_file = "../DATA/no_LM%d/pos_%d.txt" % (net, image_size)
     pos_file = open(pos_label_file, 'w')
 
-    part_label_file = "../../DATA/no_LM%d/part_%d.txt" % (net, image_size)
+    part_label_file = "../DATA/no_LM%d/part_%d.txt" % (net, image_size)
     part_file = open(part_label_file, 'w')
     #read detect result
     det_boxes = pickle.load(open(os.path.join(save_path, 'detections.pkl'), 'rb'))
@@ -171,7 +171,6 @@ def t_net(prefix, epoch,
     print ('finish loading')
     #list
     print ('start detecting....')
-    print(test_data)
     detections,_ = mtcnn_detector.detect_face(test_data)
     print ('finish detecting ')
     save_net = 'RNet'
