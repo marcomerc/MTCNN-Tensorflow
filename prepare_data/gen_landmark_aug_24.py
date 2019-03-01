@@ -31,7 +31,8 @@ def IoU(box, boxes):
     Returns:
     -------
     ovr: numpy.array, shape (n, )
-        IoU
+        IoUls
+
     """
     box_area = (box[2] - box[0] + 1) * (box[3] - box[1] + 1)
     area = (boxes[:, 2] - boxes[:, 0] + 1) * (boxes[:, 3] - boxes[:, 1] + 1)
