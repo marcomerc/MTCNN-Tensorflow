@@ -199,8 +199,8 @@ for annotation in annotations:
                 cv2.imwrite(save_file, resized_im)
                 d_idx += 1
         box_idx += 1
-        # if idx % 100 == 0:
-            #print("%s images done, pos: %s part: %s neg: %s" % (idx, p_idx, d_idx, n_idx))
+        if idx % 100 == 0:
+            print("%s images done, pos: %s part: %s neg: %s" % (idx, p_idx, d_idx, n_idx))
 f1.close()
 f2.close()
 f3.close()
