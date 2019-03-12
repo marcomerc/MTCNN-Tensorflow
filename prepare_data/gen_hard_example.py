@@ -33,14 +33,28 @@ def save_hard_example(net, data,save_path):
 
     # save files
     neg_label_file = "../DATA/no_LM%d/neg_%d.txt" % (net, image_size)
-    neg_file = open(neg_label_file, 'w')
+
+    neg_file = open(neg_label_file, 'w+')
 
     pos_label_file = "../DATA/no_LM%d/pos_%d.txt" % (net, image_size)
-    pos_file = open(pos_label_file, 'w')
+
+    pos_file = open(pos_label_file, 'w+')
 
     part_label_file = "../DATA/no_LM%d/part_%d.txt" % (net, image_size)
-    part_file = open(part_label_file, 'w')
+    if not os.path.exists(part_label_file):
+        os.mkdir(part_label_file)
+    part_file = open(part_label_file, 'w+')
     #read detect result
+    # test=os.path.join(save_path, 'detections.pkl')
+
+    # if not os.path.exists(save_path):
+    #     os.mkdir(save_path)
+    # print(save_path)
+    # print(os.path.join(save_path, 'detections.pkl'))
+    # with open(os.path.join(save_path, 'detections.pkl'), 'w+b') as f:
+    #     print("after opening it")
+    #     det_boxes = pickle.load(f)
+    #     f.close()
     det_boxes = pickle.load(open(os.path.join(save_path, 'detections.pkl'), 'rb'))
     # print(len(det_boxes), num_of_images)
     print(len(det_boxes))
@@ -152,7 +166,7 @@ def t_net(prefix, epoch,
         ONet = Detector(O_Net, 48, batch_size[2], model_path[2])
         detectors[2] = ONet
 
-    basedir = '../../DATA/'
+    basedir = '../DATA/'
     #anno_file
     filename = './wider_face_train_bbx_gt.txt'
     #read anotation(type:dict), include 'images' and 'bboxes'
@@ -186,8 +200,11 @@ def t_net(prefix, epoch,
         os.mkdir(save_path)
 
     save_file = os.path.join(save_path, "detections.pkl")
-    with open(save_file, 'wb') as f:
-        pickle.dump(detections, f,1)
+    print(save_file)
+    print (detections)
+    with open(save_file, 'w+b') as f:
+        pickle.dump(detections, f)
+        f.close()
     print("%s测试完成开始OHEM" % image_size)
     save_hard_example(image_size, data, save_path)
 
@@ -227,8 +244,8 @@ if __name__ == '__main__':
     if net == "ONet":
         image_size = 48
 
-    base_dir = '../../DATA/WIDER_train'
-    data_dir = '../../DATA/no_LM%s' % str(image_size)
+    base_dir = '../DATA/WIDER_train'
+    data_dir = '../DATA/no_LM%s' % str(image_size)
 
     neg_dir = get_path(data_dir, 'negative')
     pos_dir = get_path(data_dir, 'positive')
