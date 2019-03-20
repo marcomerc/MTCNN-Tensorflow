@@ -32,7 +32,7 @@ def _get_output_filename(output_dir, name, net):
     #return '%s/%s_%s_%s.tfrecord' % (output_dir, name, net, st)
     #return '%s/train_PNet_landmark.tfrecord' % (output_dir)
     return '%s/neg_landmark.tfrecord' % (output_dir)
-    
+
 
 def run(dataset_dir, net, output_dir, name='MTCNN', shuffling=False):
     """Runs the conversion operation.
@@ -41,8 +41,8 @@ def run(dataset_dir, net, output_dir, name='MTCNN', shuffling=False):
       dataset_dir: The dataset directory where the dataset is stored.
       output_dir: Output directory.
     """
-    
-    #tfrecord name 
+
+    #tfrecord name
     tf_filename = _get_output_filename(output_dir, name, net)
     if tf.gfile.Exists(tf_filename):
         print('Dataset files already exist. Exiting without re-creating them.')
@@ -98,7 +98,7 @@ def get_dataset(dir, net='PNet'):
         bbox['xleftmouth'] = 0
         bbox['yleftmouth'] = 0
         bbox['xrightmouth'] = 0
-        bbox['yrightmouth'] = 0        
+        bbox['yrightmouth'] = 0
         if len(info) == 6:
             bbox['xmin'] = float(info[2])
             bbox['ymin'] = float(info[3])
@@ -115,7 +115,7 @@ def get_dataset(dir, net='PNet'):
             bbox['yleftmouth'] = float(info[9])
             bbox['xrightmouth'] = float(info[10])
             bbox['yrightmouth'] = float(info[11])
-            
+
         data_example['bbox'] = bbox
         dataset.append(data_example)
 
@@ -123,7 +123,7 @@ def get_dataset(dir, net='PNet'):
 
 
 if __name__ == '__main__':
-    dir = '../../DATA/'
+    dir = '../DATA/'
     net = '48'
-    output_directory = '../../DATA/imglists/ONet'
+    output_directory = '../DATA/imglists/ONet'
     run(dir, net, output_directory, shuffling=True)

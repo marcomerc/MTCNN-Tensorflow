@@ -2,7 +2,7 @@ import numpy as np
 import numpy.random as npr
 import os
 
-data_dir = '../../DATA'
+data_dir = '../DATA'
 dir_name = 'no_LM24'
 
 #anno_file = os.path.join(data_dir, "anno.txt")
@@ -25,15 +25,19 @@ with open(os.path.join(data_dir, '%s/neg_%s.txt' % (dir_name, size)), 'r') as f:
 
 with open(os.path.join(data_dir, '%s/part_%s.txt' % (dir_name, size)), 'r') as f:
     part = f.readlines()
-
+dir_path = os.path.join(data_dir, 'imglists')
+if not os.path.exists(dir_path):
+    os.makedirs(dir_path)
+if not os.path.exists(os.path.join(dir_path, "%s" %(net))):
+    os.makedirs(os.path.join(dir_path, "%s" %(net)))
 
 #with open(os.path.join(data_dir, '%s/landmark_%s_aug.txt' % (size, size)), 'r') as f:
 #    landmark = f.readlines()
 with open(os.path.join(data_dir, '%s/landmark_%s_aug.txt' % (size, size)), 'r') as f:
     landmark = f.readlines()
-  
+dir_path = os.path.join(data_dir, 'imglists')
+
 #dir_path = os.path.join(data_dir, 'imglists',"RNet")
-dir_path = os.path.join(data_dir, 'imglists_noLM',"RNet")
 if not os.path.exists(dir_path):
     os.makedirs(dir_path)
 #write all data

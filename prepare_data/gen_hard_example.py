@@ -171,7 +171,6 @@ def t_net(prefix, epoch,
     filename = './wider_face_train_bbx_gt.txt'
     #read anotation(type:dict), include 'images' and 'bboxes'
     data = read_annotation(basedir,filename)
-    print data.keys()
     mtcnn_detector = MtcnnDetector(detectors=detectors, min_face_size=min_face_size,
                                    stride=stride, threshold=thresh, slide_window=slide_window)
     print("==================================")
@@ -237,7 +236,7 @@ def parse_args():
 
 if __name__ == '__main__':
 
-    net = 'ONet'
+    net = 'RNet'
 
     if net == "RNet":
         image_size = 24

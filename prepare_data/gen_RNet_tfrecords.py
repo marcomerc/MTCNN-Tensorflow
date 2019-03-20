@@ -6,7 +6,7 @@ import time
 
 import tensorflow as tf
 
-from prepare_data.tfrecord_utils import _process_image_withoutcoder, _convert_to_example_simple
+from tfrecord_utils import _process_image_withoutcoder, _convert_to_example_simple
 
 
 def _add_to_tfrecord(filename, image_example, tfrecord_writer):
@@ -32,7 +32,7 @@ def _get_output_filename(output_dir, name, net):
     #return '%s/%s_%s_%s.tfrecord' % (output_dir, name, net, st)
     #return '%s/train_PNet_landmark.tfrecord' % (output_dir)
     return '%s/%s_landmark.tfrecord' % (output_dir,name)
-    
+
 
 def run(dataset_dir, net, output_dir, name='MTCNN', shuffling=False):
     """Runs the conversion operation.
@@ -41,8 +41,8 @@ def run(dataset_dir, net, output_dir, name='MTCNN', shuffling=False):
       dataset_dir: The dataset directory where the dataset is stored.
       output_dir: Output directory.
     """
-    
-    #tfrecord name 
+
+    #tfrecord name
     tf_filename = _get_output_filename(output_dir, name, net)
     if tf.gfile.Exists(tf_filename):
         print('Dataset files already exist. Exiting without re-creating them.')
@@ -70,7 +70,7 @@ def run(dataset_dir, net, output_dir, name='MTCNN', shuffling=False):
     print('\nFinished converting the MTCNN dataset!')
 
 
-def get_dataset(dir, name, net='PNet'):
+def get_dataset(dir, name, net='ONet'):
     '''
 
     :param dir: directory of the raw data
@@ -79,7 +79,7 @@ def get_dataset(dir, name, net='PNet'):
     '''
     #item = 'imglists/PNet/train_%s_raw.txt' % net
     #item = 'imglists/PNet/train_%s_landmark.txt' % net
-    item = '%s/%s_24.txt' % (net,name)
+    item = 'imglists/RNet/train_%s_landmark.txt' % net
 
     dataset_dir = os.path.join(dir, item)
     print('dataset dir is :', dataset_dir)
@@ -105,7 +105,7 @@ def get_dataset(dir, name, net='PNet'):
         bbox['xleftmouth'] = 0
         bbox['yleftmouth'] = 0
         bbox['xrightmouth'] = 0
-        bbox['yrightmouth'] = 0        
+        bbox['yrightmouth'] = 0
         if len(info) == 6:
             bbox['xmin'] = float(info[2])
             bbox['ymin'] = float(info[3])
@@ -122,7 +122,7 @@ def get_dataset(dir, name, net='PNet'):
             bbox['yleftmouth'] = float(info[9])
             bbox['xrightmouth'] = float(info[10])
             bbox['yrightmouth'] = float(info[11])
-            
+
         data_example['bbox'] = bbox
         dataset.append(data_example)
 
@@ -130,9 +130,9 @@ def get_dataset(dir, name, net='PNet'):
 
 
 if __name__ == '__main__':
-    dir = '../../DATA'
+    dir = '../DATA'
     net = 'no_LM24'
-    output_directory = '../../DATA/imglists_noLM/RNet'
+    output_directory = '../DATA/imglists/RNet'
     if not os.path.exists(output_directory):
         os.makedirs(output_directory)
     name = 'part'

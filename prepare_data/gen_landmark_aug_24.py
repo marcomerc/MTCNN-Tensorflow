@@ -11,12 +11,11 @@ import random
 import tensorflow as tf
 import sys
 import numpy.random as npr
-dstdir = "../DATA/24/train_RNet_landmark_aug"
-OUTPUT = '../DATA/24'
-if not exists(OUTPUT): os.mkdir(OUTPUT)
-if not exists(dstdir): os.mkdir(dstdir)
-assert(exists(dstdir) and exists(OUTPUT))
 
+# if not exists(OUTPUT): os.mkdir(OUTPUT)
+# if not exists(dstdir): os.mkdir(dstdir)
+# assert(exists(dstdir) and exists(OUTPUT))
+#
 
 def IoU(box, boxes):
     """Compute IoU between detect box and gt boxes
@@ -187,5 +186,15 @@ if __name__ == '__main__':
     # train data
     net = "RNet"
     #train_txt = "train.txt"
+    dstdir = "../DATA/24/train_RNet_landmark_aug"
+    OUTPUT = '../DATA/24'
+    data_path = '../DATA'
+    if not exists(OUTPUT):
+        os.mkdir(OUTPUT)
+        print OUTPUT
+    if not exists(dstdir):
+        print dstdir
+        os.mkdir(dstdir)
     train_txt = "trainImageList.txt"
-    imgs,landmarks = GenerateData(train_txt, OUTPUT,net,argument=True)
+
+    imgs,landmarks = GenerateData(train_txt, data_path,net,argument=True)
