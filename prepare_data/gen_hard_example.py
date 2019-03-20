@@ -147,6 +147,7 @@ def t_net(prefix, epoch,
     #PNet-echo
     model_path = ['%s-%s' % (x, y) for x, y in zip(prefix, epoch)]
     print(model_path[0])
+    print P_Net
     # load pnet model
     if slide_window:
         PNet = Detector(P_Net, 12, batch_size[0], model_path[0])
