@@ -1,6 +1,6 @@
 #coding:utf-8
-from train_models.mtcnn_model import O_Net
-from train_models.train import train
+from mtcnn_model import O_Net
+from train import train
 
 
 def train_ONet(base_dir, prefix, end_epoch, display, lr):
@@ -17,7 +17,7 @@ def train_ONet(base_dir, prefix, end_epoch, display, lr):
     train(net_factory, prefix, end_epoch, base_dir, display=display, base_lr=lr)
 
 if __name__ == '__main__':
-    base_dir = '../../DATA/imglists/ONet'
+    base_dir = '../DATA/imglists/ONet'
 
     model_name = 'MTCNN'
     model_path = '../data/%s_model/ONet_landmark/ONet' % model_name
