@@ -413,7 +413,6 @@ class MtcnnDetector(object):
         empty_array = np.array([])
         # test_data is iter_
         s_time = time.time()
-        print test_data
         for databatch in test_data:
             # databatch(image returned)
             batch_idx += 1
@@ -424,14 +423,14 @@ class MtcnnDetector(object):
                 s_time = time.time()
 
 
-            # im = databatch
+            im = databatch
             # pnet
 
 
             if self.pnet_detector:
                 st = time.time()
                 # ignore landmark
-                boxes, boxes_c, landmark = self.detect_pnet(databatch)
+                boxes, boxes_c, landmark = self.detect_pnet(im)
 
                 t1 = time.time() - st
                 sum_time += t1
@@ -450,7 +449,7 @@ class MtcnnDetector(object):
             if self.rnet_detector:
                 t = time.time()
                 # ignore landmark
-                boxes, boxes_c, landmark = self.detect_rnet(databatch, boxes_c)
+                boxes, boxes_c, landmark = self.detect_rnet(im, boxes_c)
                 t2 = time.time() - t
                 sum_time += t2
                 t2_sum += t2
@@ -463,7 +462,7 @@ class MtcnnDetector(object):
 
             if self.onet_detector:
                 t = time.time()
-                boxes, boxes_c, landmark = self.detect_onet(databatch, boxes_c)
+                boxes, boxes_c, landmark = self.detect_onet(im, boxes_c)
                 t3 = time.time() - t
                 sum_time += t3
                 t3_sum += t3
